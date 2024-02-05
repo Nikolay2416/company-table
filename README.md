@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+<h1 align="center">Company Table</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Modular architecture
 
-## Available Scripts
+React Module Architecture to break down the project into independent modules for easier development and maintenance.
 
-In the project directory, you can run:
+<pre>
+├── app/
+    └── App.tsx                 # ReactJS App
+├── data/                       # Global data
+├── hooks/                      # Custom hooks
+├── modules/                    # Modules
+    └── SampleModule/
+        ├── api
+        ├── components
+        ├── constants
+        ├── enums
+        ├── store               # Module store
+        ├── styles
+        ├── types
+        ├── utils
+        └── index.ts
+├── store/                      # Global store
+├── .eslintrc                   # ESLint configuration
+├── .prettierrc                 # Prettier configuration
+└── README.md                   # Project description file (you are reading it right now)
+</pre>
 
-### `npm start`
+Typical structure of a component on the example of a conditional `SampleComponent`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The directory name is the same as the component name.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Entry Point
 
-### `npm test`
+- `components/SampleComponent/index.ts`
+- `pages/SamplePage/index.ts`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+File `index.ts` contains only the necessary exports.
 
-### `npm run build`
+```tsx
+export { SampleComponent } from './SampleComponent'
+export { SampleComponentProps } from './SampleComponent/SampleComponent.types'
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Function naming inside
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Custom event function names (onClick, onChange, etc.) must start with
+with the prefix `handle`, for example `handleClick`, `handleOutsideClick`, `handleChange`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```tsx
+  <Button onClick={handleButtonClick} />
+  <Input onChange={handleInputChange} />
+```
 
-### `npm run eject`
+If the function is not a custom event, then prefixes must be used in the name
+function descriptions: `set`, `get`, `update`, etc., for example: `getSampleParams()`, `normalizeSampleName()`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Order of imports (blocks are separated by an empty line)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React, {hooks}, libs
+- components
+- utils/helpers/hooks/constants/redux/mocks
+- types/interface's
+- styles
+- images
