@@ -23,6 +23,10 @@ export const companySlice = createSlice({
       }
     },
 
+    selectedCompaniesDeleteAll: (state) => {
+      state.selectedCompanies = [];
+    },
+
     addCompany: (state, action) => {
       const newCompany = {
         id: nanoid(),
@@ -64,5 +68,6 @@ export const companySlice = createSlice({
   },
 });
 
-export const { chooseCompanies, addCompany, deleteCompanies, updateCompanyInfo } = companySlice.actions;
+export const { chooseCompanies, selectedCompaniesDeleteAll, addCompany, deleteCompanies, updateCompanyInfo } =
+  companySlice.actions;
 export default companySlice.reducer;

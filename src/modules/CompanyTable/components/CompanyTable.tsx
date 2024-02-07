@@ -6,7 +6,7 @@ import { CompanyTableItem } from './CompanyTableItem';
 
 import { useAppDispatch, useAppSelector } from 'hooks/store';
 import { getCompanies } from 'store/api/company.api';
-import { deleteCompanies } from 'store/slices/companySlice';
+import { selectedCompaniesDeleteAll, deleteCompanies } from 'store/slices/companySlice';
 import { deleteEmployeesWhenDeletingCompany } from 'store/slices/employeeSlice';
 
 import cls from '../styles/companyTable.module.css';
@@ -29,6 +29,11 @@ export const CompanyTable: FC = () => {
     const newEmployees = employees.filter((employee) => !selectedCompanies.includes(employee.idCompany));
     dispatch(deleteEmployeesWhenDeletingCompany(newEmployees));
     dispatch(deleteCompanies());
+  };
+
+  const handleSwitchPage = (page: number) => {
+    setCurrentPage(page);
+    dispatch(selectedCompaniesDeleteAll());
   };
 
   const companiesRender = currentCompanies.map(({ id, name, address }) => {
@@ -65,7 +70,7 @@ export const CompanyTable: FC = () => {
             defaultCurrent={1}
             total={companies.length}
             pageSize={pageSize}
-            onChange={(page) => setCurrentPage(page)}
+            onChange={handleSwitchPage}
             className={cls.pagination}
           />
         </Spin>
