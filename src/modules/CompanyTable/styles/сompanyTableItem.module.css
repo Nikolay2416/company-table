@@ -1,12 +1,9 @@
 .line {
   display: flex;
   justify-content: space-between;
-
-  padding: 10px 0px;
-
-  background-color: #fafafa;
-
+  padding: 10px 0;
   text-align: center;
+  background-color: #fafafa;
 }
 
 .lineActive {
